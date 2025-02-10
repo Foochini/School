@@ -1,0 +1,17 @@
+CIA Triad – Confidentiality, Integrity, Availability
+	-Can improve one trait but it will cost another trait
+Confidentiality – Restrict access to sensitive information
+Integrity – Protecting data from unauthorized tampering – “Can I trust this data?”
+Availability – Making sure data is accessible to the end user – Very hard balancing with availability and integrity and confidentiality
+
+Air Gapped – Machine with no connection to the internet – Affects availability and integrity
+	-To be properly air gapped it should have never been connected to the internet
+Different types of bad actors
+1.Substantial number of security attacks are traced to organized crime
+2.Lots of hackers target vulnerable systems for notoriety like target FBI
+3.Politically motivated hackers or government sponsored hackers
+
+Vulnerability – Weakness in the system
+Zero day vulnerability – Unknown vulnerability that is discovered on “day zero”
+	-Day zero is the day its found and a race begins to exploit and patch it
+Most trusted algorithms are the ones that codebases are completely free to see online

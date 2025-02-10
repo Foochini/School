@@ -1,0 +1,35 @@
+“Kernel” – Part of the OS that Is always present in memory
+	-Manages resources (CPU, memory, devices, disks)
+	-Abstracting the system
+System Bus – Bunch of electronic connections(200ish)(wires)
+
+CPU Registers
+	-Program Counter (PC) - Stores the address of the next instruction
+	-Instruction Register (IR)/(CIR) -Stores the instruction currently being executed
+	-Memory address register (MAR) – Stores the address of a location in memory
+-Memory Data Register (MDR) – Stores data that’s going / coming from a location in                                     memory (MAR)
+-Accumulator (AC)/(ACC) – A registry that stores data or data that is the result of a calculation --- (Special Purpose Register)
+	PC -> MAR -> MDR-> CIR -> Control Unit -> PC -> MAR -> AC
+Intro To C
+-Many statements are similar to java (Data types - int, long, byte, double, char, boolean)
+	-Loops (similar to java), Cant declare variable inside FOR loop
+	-Conditionals, Operators
+	-No string datatype
+	-Use int method MOST times so we make it clear where method ends
+
+Hello World in C
+
+#include <stdio.h>
+Int main(){
+	Printf(“Hello World!\n”);
+Return 0;
+}
+Complilation -------------------------------------------------------------------------------------------------
+$gcc hello.c       - Creates file a.out
+$a.out 		-Runs script from command line
+Hello World!
+$gcc -o helloFile hello.c 	-Creates script called helloFile
+$helloFile
+Hello World!
+$
+
