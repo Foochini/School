@@ -1,0 +1,79 @@
+Lab 3 - Be careful to not write stuff I shouldnt know some questions are just our observations.
+
+x = fork() x = the PID(Process ID) of the second process then x in the second program = 0;
+Pipe - Shares data between two processes
+pipe(p) - pipe sends the address of p array
+New function writes data into p[1] and the og process recieves from p[0]
+To send data through pipe //  write(p[1], &buf, 50) - p[1] is the pipe. buf is the location of an array and we wanna write 50 bits
+-----------------------------------------------------------------------------------------------------------------
+OS Design Strategies
+    Simple - Layered buut all layers can control hardware
+           - Small and Fast
+    Layered - Circular diagram with different layers
+            - Layer N interacts with layers N + 1 and N - 1
+            -Large / Complicated
+    Microkernel - Put only the very necessary things into the kernel
+                -Put a lot of functionality into the user space
+    Modular - Small kernel and some modules
+    Virtual Machine -
+
+--------------------------------------------------------------------------------------------------------------------------
+Chapter 3 - Processes
+Process - A program in execution
+ |
+  -> Includes - Global data - stack - heap
+              -Program counter
+              -Process control block
+                -Process State 
+                -Value of CPU registries
+                -CPU scheduling data
+Sleeps should never be synchronised / same time
+
+                        Terminated
+                          /
+New --- Ready ------ Running           CPU processes
+          |              /
+          --------- Waiting    
+
+Short term scheduler(CPU Scheduler) - Runs frequently to select next process for CPU
+Long term scheduler (Job scheduler) - Runs frequently to select jobs to be loaded into ready queue
+I/O Bound processes - They have short CPU bursts with many I/O operations
+CPU Bound processes - Long cpu bursts with relatively few I/O operations
+
+InterProcess Communication (IPC)
+Independent process - Doesnt affect other processes and isnt affected by others
+Cooperating process - Can affect and be affected by other processes
+  -Share resources
+  -Modularity
+Models for IPC - Shared memory - Cooperating processes share a common block of memory
+Message passing - Processes send messages through mechanisms provided by teh cpu
+  -Processes dont need to be on same Machine
+  -OS IPC must provide: send msg, receive msg,
+  -If process p and q are communicating the OS needs a communication link
+Synchonization (Message passing)
+-Two type blocking or non blocking
+-Blocking send - sender send a msg and waits for receiver to get interacts
+-Blocking receive - Receiver waits for a msg if one isnt there yet
+-Non blocking send - Sender sends the msg and moves on
+-Non blocking receive -  receiver receives a valid msg if one is there or gets null
+
+lab 3 kinda
+t3 = (a  + 2) * (b - 5)
+t1 = a + 2     sleep(1);
+t2 = b -5      sleep(1);
+t3 = t1 * t2   sleep(1);
+
+int main(){
+  int a, b, t1, t2, t3;
+  int p[2];
+  pipe(p);
+  if(!fork()){     //Child code
+    t2 = b - 5; sleep(1);
+    write(p[1], &t2, size(int)); //%t2 address of t2
+    return 0;
+  }
+  t1 = a + 2; sleep(1);
+  read(p[0], &t2, sizeOf(int));
+  t3 = t1 * t2; sleep(1); 
+}
+

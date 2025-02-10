@@ -1,0 +1,12 @@
+Producer Consumer problem 
+    -Classic problem used to discuss IPC (inter process communication)
+    -Model to discuss client server communication
+
+ A producer process produces items for consumer processes to consumer  
+    -A consumer shouldnt consume an item if theres no item to consume
+    -A producer should not produce an item if the buffer is full
+
+Solving P-C problem with shared memory
+    -Items are ints
+    -
+    

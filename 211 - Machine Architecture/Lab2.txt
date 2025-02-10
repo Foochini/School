@@ -1,0 +1,43 @@
+Lab 2 COSC 211 - Zane Tessmer 300242419
+
+Part 1
+1. Machine language is written in 1's and 0's for the cpu to read directly while assembly language is a slightly higher level language that uses
+numbers and symbols while still being lower level than other languages such as java.
+2. RISC stands for reduced instruction set computer which implies the instruction set is very simple contains a small number of instructions.
+3. Vonn neuman architecture uses a single shared memory bus and stores data and instructions in the same memory unit.
+Harvard architecture uses two memory buses to read data and instructions seperately.
+4. AVR uses modified harvard like most other devices as it is much quicker than vonn neuman or old harvard architecture.
+5. PROGMEM is persistent flash memory thats usually the largest storage storing things like program code and/or data.
+SRAM is very fast but volatile memory storing data and registers like global variables and methods.
+EEPROM is persistent long term memory that is very slow and non-Volatile usually storing the BIOS code.
+6.SRAM in an AVR starts at 0x0100
+7. If you want to store a number during the execution of assembly code you would want 
+to use the general purpose registers where variables are commonly stored
+8. The ALU is connected to the general purpose registers so operands can be loaded directly to the ALU.
+9. If the carry bit is set to 1 it implies the arithmatic overflowed
+10. When using SUBI k can be 8 bits while the rd can only be 4 bits.
+
+Part 2
+regA = 7
+regB = 31
+regC = 42
+regD = 1
+
+add regA, regC = 7 + 42 = 49
+regA = 49
+regB = 31
+regC = 42
+regD = 1
+
+adc regB, regD = 31 + 1 = 32
+regA = 49
+regB = 32
+regC = 42
+regD = 1
+
+49 = 00110001   
+32 = 00100000
+
+00100000 00110001
+8192 4096 2048 1024 512 256 128 64 32 16 8 4 2 1
+8192 + 1 + 16 + 32 = 8241

@@ -1,0 +1,16 @@
+Modern Standard - AES 
+    -DES became obsolute
+    -AES = Advancced encryption Standard
+    -AES block size - 128 bits
+    -AES almost everywhere - If connected to internet using AES encryption to connect 
+    -Why use AES - Open sourced so very secure since everyones looked at it
+        -It is fast for high speed encryption and decryption
+    
+Limitations of cryptanalysis attacks
+    -Crpytanalysis attack on AES are theoretical
+    -Billions of years to recover a single key
+Side channel attacks
+    -Doesnt try to manipulate or break AES attack the platform or hardware that the algorithms on
+    -Cache timing attacks - analyzes the precise timing of a cryptographic system and uses differences in timing to determine the inputs
+
+AES Is very Secure

@@ -1,0 +1,64 @@
+LEARN HEXADECIMAL BETTER
+
+Two major areas of machine architecture
+    -Machine organization - physical parts of the machine / How different pieces interact
+    -ISA (Instruction Set Architecture) - Write code for processors and other computer parts
+
+-Most processors can be classified into some Major architecture types based on how they access memory
+    -Von Nuemann Architecture (SINGLE SHARED MEMORY BUS)(Memory unit stores/reads instructions and data)
+    -Harvard Architecture (TWO MEMORY BUSES)
+
+    -Von Nuemann computer was the first to store both DATA and INSTRUCTIONS in a SINGLE, ACCESSIBLE MEMORY 
+    -Not used very much anymore because data and instructions cannot be accessed at the same time
+    -Harvard Architecture appeared soon after and split memory bus into two
+    -Drawback with Harvard, Memory must be either data or instructions they can never cross
+
+    Modified Harvard Architecture - Provides a way to access data within instruction memory and vise versa
+        -MODIFIED HARVARD USED FOR ALMOST EVERYTHING NOW A DAYS
+
+Different data types in AVR
+    -Flash PROGMEM for storing instructions and/or data (largest memory storage)
+        -Flash memory is persistent memory(Stores data if power turns off) (Flash = ssd, usb's) (Flash memory dies after lots of reads/writes)
+        -Flash memory is 16 bits wide then X rows
+        -Each instruction must be 16 bits or less
+    -SRAM for data storage and registers
+        -AVR useds SRAM for data memory - faster than flash but VOLATILE (Lose data if no power)
+        -8 bits wide (8 bits = numbers 0 - 255)
+        -Remainder of system memory (RAM) used to store variables
+    -EEPROM for persistent long term data (Electronically Erasable or Programmable Read-Only Memory)
+        -Special form of memory that is non-VOLATILE with a very long lifespan
+        -Very slow compared to flash/SRAM
+        -Small EEPROM in most PC's to store BIOS config / Startup
+
+    -AVR is execute in place(XIP) - Instructions are executed directly from the flash memory
+        -Most PC's load instructions from RAM first - XIP saves RAM space at the cost of SPEED
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+Missed lecture 3?
+-------------------------------------------------------------------------------------------------------------------------------------------
+Binary -- NEED TO BE ABLE TO DO COMPLEMENTS 
+    -Endianness refers to wether its big endian r little endian. This changes when you read left to right or right to left  
+        -Most used is little endian where first bit you read on the left is the smallest
+        -Based on the processor when its built
+    
+    0    0    1    1    0    1    0    1
+    2^7 2^6  2^5  2^4  2^3  2^2  2^1  2^0
+    128  64   32   16   8    4    2    1
+              32 + 16    +   4     +    1   =  53
+
+    -COM and NEG instructions 
+
+    Ways computers can deal with negative numbers
+        -Extra bit to denote negativity     11000 = -8     01000 = 8
+            -Not great because you lose a bit and now have two zeros   10000 = -0 /   00000 = 0
+        -Complement - Inverting or flipping a binary number / all 0's become 1's and 1's become 0's
+            -Ones complement - Support with COM instruction - 2^n - 1 - X  where n = length of bits
+                77 = 01001101   / 2^8 = 256  / 256 - 1 = 255  /  255 - 77 = 178  /   178 = 10110010
+                1011 + 1100 = 10111 Since both first bits are 1 we add a 5th bit - overflow / carry
+                -Two zeros again which is bad - 00000000 = 0 and 11111111 = -0
+            -Twos complement - Most used today
+                -Invert the same as Ones complement then add 1
+                77 = 01001101 invert = 10110010 + 00000001 = 10110011 = -77 in Twos complement
+                -Only one Zero now
+
+    
