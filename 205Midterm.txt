@@ -1,0 +1,16 @@
+-Half of exam straight from quizzes
+-short answer - why might a group choose agile over plan driven etc...
+-1 long answer scenario based - tasked with building a project and how you might implement it with xp techniques
+
+Material on exam
+-Agile software development
+   -Plan driven
+   -software development process
+   -SCRUM
+-XP
+   -User stories
+   -Pair programming
+   -TDD
+   -Refactoring
+-Use case / sequence / class / activity
+-Estimations (story points / planning poker)
