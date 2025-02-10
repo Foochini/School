@@ -14,3 +14,7 @@ Material on exam
    -Refactoring
 -Use case / sequence / class / activity
 -Estimations (story points / planning poker)
+-Project planning
+-risk / people management
+-Sprints
+-Acceptance tests - definition of "Done"

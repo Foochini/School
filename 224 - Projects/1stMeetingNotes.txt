@@ -1,0 +1,30 @@
+-Need website to be safe
+-Mock up – sketch of a website – make a few attempts – look at other websites / pinnacle roofing 
+	-3 or 5 mock ups
+-colors are strategic – look at other sites
+-service area on site
+-get free estimate button
+-wordpress?? – ceo need to add pictures
+-ux design 
+-Pinnacle
+-Scalable / resizes window
+-upload photos on flickr and they get sent to site
+Specializes in metal
+-He has a domain wants to implement at the end
+Does not like IEEE website / too long
+Over the top roofing logo purple / blue fade on canva?
+Really likes phone number that links to phone
+VERY BIG free estimate button
+-No meeting reading break
+TOP PRIORITY
+	-Security
+	-github? Add her to project – KristinaCormier github account
+	-about us / contact us
+	-headers
+-previous work
+-list of services provided
+-Call for emergency repair?
+-copper roofing.
+-no office
+GIVE HER IDEAS FOR PICTURES TO BE ADDED on Monday – USE REACT JUBE SAYS?
+
