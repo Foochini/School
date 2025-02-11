@@ -1,0 +1,218 @@
+struct node {
+    char* player;
+    struct node* next;
+}
+
+struct node goat; 
+
+1. Assign the node associated with goat the player string "Lionel messi"
+
+goat.player = "Lionel Messi";
+
+2. Do the same but store it on the heap
+
+struct node *best;
+
+int size = strlen("Kylian Mbappe")+1;
+best = (struct node*)malloc(sizeof(struct node));
+best->player = (char*)malloc(size*sizeof(char));      //best->player is the same as best.player but used on pointers instead of variables
+strcpy(best->player,"Kylian Mbappe");
+
+
+Create a function startingWord that returns the first word of a string
+
+char* startingWord(char* c){
+    int count = 0;
+    while(c[count] != ' '){
+        count++;
+    }
+    char* word1 = (char*)malloc((count + 1)*sizeof(char));
+    for(int i = 0; i < count; i++){
+            word1[i] = c[i];
+    }
+    word1[count] = '\0';
+    return word1;
+}
+
+-Threading model mapping kernel threads to user threads - one to one / one to many / one to none
+One-to-One Model: Each user thread maps to a single kernel thread.
+- Advantages: Parallelism, better performance on multi-core systems.
+- Disadvantages: Overhead of creating kernel threads.
+
+One-to-Many Model: Multiple user threads map to a single kernel thread.
+- Advantages: Lightweight, efficient for single-core systems.
+- Disadvantages: No true parallelism, blocking system calls affect all threads.
+
+
+-Fetch - decode - execute cycle
+    -Fetch - CPU fetches next instruction from memory using PC and increments the PC
+    -Decode - The instruction is decoded to determine the operation
+    -Execute - CPU performs the operation
+    -Repeat - Cycle continues for next isntruction
+
+-privilged operations?
+
+- stack vs heap - malloc allocates to heap
+    -Stack - stores local variables, parameters and returns addresses - managed automatically by compiler
+    -Heap - stores dynamic memory (malloc) - managed manually by user 
+
+-Briefly explain how C implements shared memory
+    -When 2 processes want to share memory the parent asks the OS for a shared memory segment by performing a system call like so...
+    int mid = shmget(...);
+    -This returns an integer identifying the memory segment - processes will use mid to attach the segment to their memory spaces like so....
+    foo = shmat(mid, ...);   //Where foo is the address of the shared memory
+
+-Identify and describe the two approaches to inter - process communication
+    1. Shared memory block where processes communicate by reading and writign data to a shared memory location.
+    2. Message passing between processes via a "mailbox" provided by the OS.
+
+-Describe the layered model of an OS
+    The OS is divided into different layers that can only interact with the layers adjacent to them.
+
+-Whats the difference between CPU bound process and I/O bound process
+    -CPU bound process spends most of its time on the CPU or waiting in the ready queue
+    -I/O bound processes spend most of their time waiting for I/O operations (input / output)
+
+-NEED TO WRITE C CODE FOR concurrent operations similar to lab
+
+----------------------------------------------------------------------------------------------------------------
+SYSTEM CALL - request made by program to the OS for a service such as accessing files, creating processes, ...., that the program cannot perform itself
+Thread - like a process that shares global variables a single process will have mltiple threads 
+
+Kernel - Core part of an OS that is always present in Memory
+    -Manages resources 
+    -Abstracts hardware details for applications
+    -ACTS AS A BRIDGE BETWEEN HARDWARE AND SOFTWARE
+
+Dual Mode 
+-Kernel mode - OS kernel runs in this mode
+    -has unrestricted access to hardware and system resources
+    -Can execute PRIVILIGED instructions (Example: accessing hardware, modyfing memory)
+-User mode 
+    - User applications run in this mode 
+    -Has restricted access to hardware and system resources
+    -Cannot execute priviliged instructions directly
+-Why Dual mode is necessary
+    -Security - prevents user applications from interfering with OS 
+    -Stability - Ensures that a buggy or malicious program cannot crash the entire system
+    -Resource management - Allows the OS to control and allocate resources effiecently
+HOW DOES IT WORK
+-Mode bit in the CPU indicates 0 for kernel and 1 for user mode 
+-read() and write() switches to kernel mode and executes instruction then switches back
+
+
+System Bus - Collection of wires that facilitates communication between CPU, memory and peripherals
+    -Around 200 connections
+
+CPU registers
+    -Program counter (PC) - stores the address of the next instruction to be executed
+    -Instruction register(IR/CIR) - Stores the instructions currently being executed 
+    -Memory address register (MAR) - Stores the address of a location in memory 
+    -Memory data register (MDR) - Stores data being transferred to/from memory
+    -Accumulator (AC/ACC) - Stores the data or results of calculations
+    -Arithmatic Logic unit (ALU) - Performs arithmatic and logical operations
+    -Control Unit(CU) - Manages the fetch - decode - execute cycle
+CPU Execution cycle
+    -PC - MAR - MDR - CIR - Control unit - PC - MAR - AC
+
+C Pointers - A pointer is a variable that stores the memory address of another variable
+    -Declare - int *p 
+    -Assign address - p = &x
+    -Dereference - *p = 85
+Pointer Arithmatic 
+    p + 1 returns the memory location after P
+    *(p + 1) returns the value at the location after p - basically p[1]
+
+NO BOUND CHECKING IN C - int arr[3];     arr[14] = 5; NOTHING IS STOPPING THIS 
+
+C style Strings
+    -Char arrays
+    -last character needs to be null terminator = \0   -If no null terminator compiler doesnt know when the end of the array is
+    -char name[5] = {'z', 'a', 'n', 'e', '\0'};
+
+    -strlen(name) - returns length of array without '\0'
+    -strcpy(destiantioon, source); - Copies a string
+    -strcat(string1, string2) concatenates two strings - result stores in string1
+    -strcmp(string 1, string 2) - will return 0 if strings are equal
+
+Structs in C - A custom data type simialr to objects
+struct foo{
+    int x;
+    char name[10]
+    struct foo *next;
+}
+    -Use malloc to allocate struct on heap -- struct foo* f = (struct foo*)malloc(sizeof(struct foo));
+    -use free to un-allocate 
+
+Operating System design strategies 
+    -Simple - Small and fast but all layers can control hardware - NO DUAL MODE 
+    -Layered - Circular diagram with layers only interacting with adjacent layers 
+    -Microkernel - Minimal kernel with most functionality in user space 
+    -Modular - Small kernel with additonal modules
+    -VM - emualtes harware for multiple OS instances
+    -Two - tier - Combines aspects of monolithic and microkernel designs
+    -Store - Data centric architecture, often used in distributed systems
+
+Processes - A program in execution
+-Components of a process
+    -Global data - variables and data structures
+    -Stack - Function calls and local variables
+    -Heap - dynamic memory allocation
+    -Program counter - Tracks the next instruction
+    -Process control block - Stores process state, CPU registers and scheduling data
+
+Process states
+ - New - process is being created
+ - Ready - Process is waiting to be assigned to the CPU
+ - Running - Process is executing on the CPU
+ - Waiting - Process is waiting for an event (Example: Input/Output) and returns to ready state after
+ - Terminated - Process has finished execution
+ - Zombie - Process has completed execution but still has an entry in the process table
+ New - Ready - Running - Waiting - Ready - Running - Terminated
+
+ Schedulers
+    -Short term scheduler (CPU Scheduler) - Selects the next process for the CPU to complete
+    -Long term scheduler (Job scheduler) - Selects jobs to be laoded into memory and is responsible for the degree of multiprogramming (# of processes in memory)
+    -Degree Timer - Tracks the CPU usage and enforces time limits
+    -Context scheduler - manages context switches between processes
+
+Process Types
+    -I/O Bound - Short CPU Burts, frequent I/O operations
+    -CPU bound - Long CPU bursts, infrequent I/O operations
+
+Inter Process Communication
+-Models for IPC
+    -Shared memory - Processes have a common block of memory
+    -Message passing - Processes send messages throguh mechanisms provided by the OS
+-Synchronisation (Message passing)
+    -Blocking send - sender send a msg and waits for receiver to receive it
+    -Blocking receive - Receiver waits for a msg if one isnt there yet
+    -Non blocking send - Sender sends the msg and moves on
+    -Non blocking receive -  receiver receives a valid msg if one is there or gets null
+
+Producer Consumer Problem
+-A classic Synchronisation problem used to discuss IPC (inter process communitcaiton)
+-Producer - Produces items for the consumer
+-Consumer - Consumes items produced by the producer
+
+-Constraints
+    -A consumer should not consume an item if no item is available
+    -A producer should not produce an item if the buffer is full
+-Solution with shared Memory
+    -use a buffer to store items
+    -Synchornize access to the buffer using semaphores or mutexes??????
+
+FORK / PIPE 
+    -Fork creates a new process and returns 0 in the child process
+    -Returns the childs PID in the parent process
+
+    -Pipe is a mechanism for sharing data between processes
+    -pipe(p) create a pipe 
+    -write(p[1], &buf, 50); ALWAYS WRITE INTO [1] side of pipe
+    -read(p[0], &buf, 50); ALWAYS READ FROM p[0] side of pipe
+
+
+STACK VS HEAP 
+int x = 123 - stored on the stack
+int* p = (int*)malloc(sizeof(int)); - MAKES YOU THINK HEAP BUT NOT - Memory allocated by malloc is on heap but the pointer p is stored on stack!!
+int** q = &p; - Stored on the stack aswell.
