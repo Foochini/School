@@ -1,0 +1,51 @@
+Agile software development
+    -Plan driven
+    -Software development process
+    -SCRUM
+
+XP
+    -User stories
+    -Pair programming
+    -TDD
+    -Refactoring
+
+UML diagrams
+    -Use case / sequence / class / activity
+
+Client / Estimations
+    -Story points / planning poker
+
+Sprint to Sprint
+Definition of "Done"
+
+Project management
+    -Project planning
+
+----------------------------------------------------------------------
+Plan Driven - All planning done upfront
+    -Fixed scope / cost - predicatble - heavy documentation
+Agile development - emphasizes adaptability
+    -Incremental deliveries - prioritize cutomer feedback
+    -Development occurs in short cycles (sprints)
+SCRUM - framework within agile that time boxes iterations into sprints
+    -Product owner - Defines requirements for product backlog
+    -SCRUM master - Facilitates the SCRUM
+    -Development team - Delivers increments of the product
+
+Product backlog - Prioritizes list of features
+Sprint backlog - subset of product backlog chosen for each sprint 
+
+XP - Extreme programming
+    -User Story - As a user I want to reset my password
+    -Pair programming - DRIVER writes code while NAVIGATOR reviews and gives suggestions
+    -TDD - Write failing tests first then write code to pass the tests 
+    -Refactoring - Improve code without altering its functionality
+
+UML diagrams
+Use case - Actors, use  cases, relationships
+Sequence - Actors, objects, messages
+Class diagram - Classes, attributes, methods, relationships
+Activity - Models workflow with actions and decision points
+
+Story point - Measure of effort and complexity
+Planning poker - Everyone gets a card - they reveal their estimates - discuss and reach a consensus
