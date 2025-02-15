@@ -1,0 +1,23 @@
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  asm(
+    "ldi r22, 0x00\n"
+    "ldi r23, 0x00\n"
+
+    "1:"
+    "add r22, r23\n"
+    "inc r23\n"
+    "cpi r23, 10\n"
+    "brne 1b\n"
+
+    "sts 0x211, r22"
+    : : : "r22", "r23"
+  );
+  Serial.println(_SFR_MEM8(0x211));
+}

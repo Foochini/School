@@ -1,0 +1,37 @@
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  asm(
+    "ldi r22, 14\n"
+    "ldi r23, 0\n"
+
+    "1:"
+    "tst r22\n"
+    "breq 2f\n"
+    "cpi r22, 1\n"
+    "breq 3f\n"
+    "subi r22, 2\n"
+    "jmp 1b\n"
+
+    "2:"
+    "sts 0x123, r23\n"
+    "jmp 4f\n"
+
+    "3:"
+    "ldi r23, 1\n"
+    "sts 0x123, r23\n"
+
+    "4:"
+    : : : "r22", "r23"
+  );
+  if(_SFR_MEM8(0x123) == 0){
+    Serial.println("Number is even!");
+  }else{
+    Serial.println("Number is odd!");
+  }
+}
