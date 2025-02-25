@@ -1,0 +1,55 @@
+Threads
+MultiThreading - One process runs on multiple threads sharing code, data and files
+
+fee() * (fi() + foo())
+
+t1 = fee();
+
+t2 = fi();
+t3 = foo()
+
+sum = t2 + t3
+
+-----------------------------------
+#include <pthread.h>
+
+int t1, t2, t3, sum, ANS
+pthread_t tid1, tid2;    ????????
+void myThread(1);
+void myThread(2);
+
+int main(){
+    pthread_create(&tid1, NULL,(void*)myThread, NULL);
+    pthread_create(&tid2, NULL,(void*)myThread2, NULL);
+    t1 = fi();
+    pthread_join(tid1, NULL);
+    sum = t3 + t1;
+    pthread_join(tid2, NULL);
+    ans = t2 * sum;
+}
+void myThread1(){
+    t3 = fo();
+}
+void myThread2(){
+    t2 = fee;
+}
+-----------------------------------
+Different way of doing it
+------------------------------------
+int t1, t2, t3, sum, ans;
+pthread_t tid1, tid2;
+void myThread1();
+void myThread2();
+int main(){
+    pthread_create(&tid1, NULL,(void*)myThread, NULL);
+    t1 = fi();
+    pthread_join(tid2, NULL);
+    sum = t1 + t3
+}
+void myThread1(){
+    pthread_create(&tid2, NULL, (void*)myThread2, NULL);
+    t2 = fo();
+}
+void myTHread2(){
+    t3 = foe();
+}

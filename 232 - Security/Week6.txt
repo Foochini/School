@@ -1,0 +1,79 @@
+Why we use Assymetric over symmetric - There is no secure channel of communcation you cant exchange key
+
+Elliptic curve D-H (ECDH)
+    -Both parties generate private key and run a shared common value through a curve function
+
+NSA tried to make popular a broken Elliptical curve cryptography 
+
+Ephemeral (ECDHE)
+    -Generate fresh new keys for each interaction to create FORWARD SECRECY
+
+TLS 
+    -ECDHE allows two parties to establish a shared secret using the Diffie - Hellman style ke exchange
+        -Problem: Cant verify who you are communicating with
+    
+    RSA - Encrypt something with a private key, then decrypt it using public key
+        -This is the opposite of normal encryption. Used to "sign" things - Shows it hasnt been tampered with
+        -Typical RSA private key length is 1024 bits - 2^1024 possible private keys
+        -Public key is derived from public key
+
+        -Server will have a certificate with a public key, issued by a verificastion company
+        -Certificate is a voucher of authenticity
+
+        1.Server sends a certificate along with ECDHE public key, which we verify
+        2.Client sends public key and certificate to server and both parties calculate shared secret
+        3.Switch to AES with shared secrety key  
+
+Key Sizes - How long are keys in ECC or RSA or AES
+    -Asymmetric cryptography rely on mathematically intractable problems which means they are hard to solve
+        -Long ass keys basically
+
+More TLS - Satisfies 3 important properties for security
+    -Confidentiality - Encrypted and cannot be read by 3rd party
+    -Authentication - Certificate proves your identity
+    -Integrity - Protects against alteration of the message
+
+Hashing Functions - Broad class of functions that take a variable length input and produce a fixed length output
+    Properties of Hash function
+        -Avalanche behaviour - Single bit change produces a large change
+        -Uniform distribution - Produces an output range that is evenly distributed across all possible output ranges
+        -Collision resistance - It is difficult to find different inputs that have the same input
+
+Lets Encrypt - Non profit company that gives certificates (HTTPS)
+
+
+MIDTERM TOPICS ----------------------------------------
+
+-CIA Triad and its components
+-Bad actor - examples
+-Vulnerability - zero day vulnerability
+-Difference between data in transit and data at rest
+-Basic principles of Polyalphabetic and Ceaser ciphers
+    -And the issue of frequency analysis in this context
+-One time pad (OTP) - properties of an OTP 
+-Example of why entropy is important
+-Entropy sources - pros and cons of each
+-Why are Pseudorandom number generators not truly random
+    -How its useful in constructing other cryptography systems
+-Explain with diagrams how a stream cipher functions including inputs and outputs like key, plaintext and ciphertext
+-Know what XOR operation does
+-Explain relation between OTP and stream cipher
+    -Why doesnt stream cipher meet requirements for an OTP
+-Difference between stream and block cipher
+-Benefits of block cipher and why better than stream
+-What is mode of operation and describe the 3, ECB, CBC, CTR
+-explain block encryption function (Mixing function)
+-explain concepts of cryptographic primitives and examples (chacha20)
+-Properties of a good mixing function
+-How and why DES was broken and what replaced It
+-Know what internal state grid of AES looks like
+-Describe the 3 steps of the AES mixing round
+-Explain how number of rounds is related to output key size
+_Provide an argument for why you should use AES
+-Explain a side channel attack and why it may concern AES
+-Why is paddign necessary in block ciphers 
+-Explain how zero padding works
+-Identify both PKCS and ANSI standard padding , explain how they work and remove padding if requested
+-Problem of securing a side channel and why symmetric  crptography requrires a side channel
+-What public and private keys are used for and how they are related
+-Describe / Diagram the Diffie- hellman exchange, including WHAT is transferred
