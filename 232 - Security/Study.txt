@@ -1,0 +1,164 @@
+-CIA Triad and its components
+    = Confidentiality
+    = Integrity
+    = Availability
+    = When each component increases other components must decrease - Easy to access means less Confidentiality
+
+-Bad actor - examples
+    = Entity with malicious intent
+    = Hacker / Cyber criminals
+
+-Vulnerability - zero day vulnerability
+    = A weakness in a system that can be exploited
+    = Zero day vulnerability is the day the vulnerabiulity is made public theres is a race to patch / exploit it
+
+-Difference between data in transit and data at rest
+    = Data in transit - Data moving across networks , REQUIRING ENCRYPTION like TLS 
+    = Data at rest - Data stored somewhere REQUIRING ENCRYPTION like AES
+
+-Basic principles of Polyalphabetic and Ceaser ciphers
+    -And the issue of frequency analysis in this context
+    = Ceaser Cipher - Shift cipher that rotates letters by a fixed number 
+    = Polyalphabetic cipher - Uses multiple alpabets to encrypt plaintext. MAKING FREQUENCY ANALYSIS HARDER
+    = Frequency analysis - Can crack Ceaser cipher by finding the most frequent letters in english in cipher text
+        =Polyalphabetic ciphers mitigate this by changing letter mappings
+
+-One time pad (OTP) - properties of an OTP 
+    = Uses truly random key as long as the message
+    = If used correctly provides PERFECT SECRECY
+    = Key must never be reused
+    = NEED secure side channel to share key
+    = CON - true random numbers very hard 
+
+-Example of why entropy is important
+    = High entropy means more randomness making decryption harder for bad actors
+
+-Entropy sources - pros and cons of each
+    = Chaotic Systems - Very high quality entropy but slow
+        = Picture of wall of lava lamps
+        = Used today - Generates entropy off the time between key presses or mouse moves
+    = Quantum affects - True randomness but slow
+        = Best entropy
+        = Radioactive decay 
+        = Very slow
+    = Thermal effects - Easy and fast but temperature dependent and can be tampered with
+        = Thermal noise in resistor / lightning
+        = Can be tampered with by temp or outside sources
+    = Clock Dift - Small size and power consumtion - Very popular
+
+-Why are Pseudorandom number generators not truly random - How its useful in constructing other cryptography systems
+    = PRNG's use algoithms to generate numbers so if given the same state at start same number will be given
+    = Useful for cryptography but vulnerable if STATE is known
+
+-Explain with diagrams how a stream cipher functions including inputs and outputs like key, plaintext and ciphertext
+    = PRNG is used to create a keystream that is longer/equal than the plaintext and the two are XOR'd together
+         key -> PRNG -> 0101010101010101010101  \
+                                                  -> XOR -> CipherText    
+           PlainText -> 1010101010101010101010  /
+
+-Know what XOR operation does  - XOR = Exlusive Or
+    = Outputs 1 if inputs differ and 0 if the same
+
+-Explain relation between OTP and stream cipher - Why doesnt stream cipher meet requirements for an OTP
+    = Stream cipher and OTP both encrypt bit by bit
+    = Differ in key generation and usage
+    = Stream cipher generates keystream off of FIXED key - Reused so less secure than OTP
+
+-Difference between stream and block cipher
+    = Stream cipher encypts bit by bit
+    = Block cipher encrypts in fixed sized blocks (AES uses 128 bit blocks)
+
+-Benefits of block cipher and why better than stream
+    = MODERN STANDARD FOR ENCRYPTION - AES most popular block cipher 
+    = Better security, very fast, extremely versatile - on modern hardware
+    = Uses less memory
+    = Less susceptible to bit - flipping attacks
+
+-What is mode of operation and describe the 3, ECB, CBC, CTR
+    = Mode of operation - An algorithm that block ciphers use to encrypt
+    = ECB (Electronic codebook) - Splits plaintext into blocks and encrypts each seperately - Same key used for each so doesnt hide patterns
+    = CBC (Cipher Block Chaining) - Combines encrypted ciphertext of the PREVIOUS BLOCK into the plaintext of next block
+    = CTR (Counter mode) - Turns block cipher into stream cipher by encrypting incrementing counters
+
+-explain block encryption function (Mixing function)
+    = Mixing function - function that "stirs" inputs together
+    = Mixing function should produce vastly different output if input altered slightly
+    = Use multiple "rounds" so we ensure its properly mixed
+
+-explain concepts of cryptographic primitives and examples (chacha20 mixing round)
+    = Primitive - Cryptography building blocks (Example: Hash functions, ciphers)
+    = Chacha20 mixing round  is considered a primitive because its a building block for the chacha20 algorithm
+
+-Properties of a good mixing function
+    = hard to determine input from the output - duh
+    = Should utilize whole range of space it can - output should not have any more characters than any other
+    = Sensitive - small change in input should be major change in output
+
+-How and why DES was broken and what replaced It
+    = Computers became faster and the 56 bit key is too easily brute forced
+    = Replaced by AES - offering better security with longer key sizes
+
+-Know what internal state grid of AES looks like
+    = 4x4 byte matrix 
+
+-Describe the 3 steps of the AES mixing round
+    = SubBytes - each byte in the state matrix is replaced using a substitution box
+    = ShiftRows - Each row of the state matrix is shifted left or right by different numbers
+    = MixColumns - Linear transformation that mixes bytes within each column using matrix multiplication
+
+-Explain how number of rounds is related to output key size
+    = More rounds = stronger security by increasing diffusion
+    = AES128 = 10 rounds
+    = Longer key length requires more rounds to distribute entropy effectively
+
+-Provide an argument for why you should use AES
+    = Secure, efficient, widely used
+    = Resistant to known cyber attacks
+
+-Explain a side channel attack and why it may concern AES
+    = Side channel attack - Not going after the algorith mbut the actual harware running it
+    = Attacks analyze timing, power consumtion and other hardware information to try and extract keys
+    = AES uses key dependent calculations meaning variations in execution time make it vulnerable to these attacks
+
+-Why is padding necessary in block ciphers 
+    = Blocks must be a fixed size so if smaller - Pad the block to make it right size
+
+-Explain how zero padding works
+    = Add zeros to make block size equal
+
+-Identify both PKCS and ANSI standard padding , explain how they work and remove padding if requested
+    = PKCS - Add padding with the value of the length of padding
+        =Add 4 bytes onto message - each byte has value of 4
+    = ANSI - Same as PKCS but only last byte has value of length
+        =Add 4 bytes onto message - 3 bytes with value of zero and last byte is 4
+
+-Problem of securing a side channel and why symmetric  crptography requrires a side channel
+    = Symmetic cryptography needs a side channel to exchange keys
+    = Side channel can be attacked - easier to attack than cipher
+
+-What public and private keys are used for and how they are related
+    = Private key only known to creator
+    = Public key - mathematically derived from private key
+
+-Describe / Diagram the Diffie- hellman exchange, including WHAT is transferred
+    = Assymetric uses 2 keys 
+    = Each party mixes their Private key with common starting values to produce PUBLIC KEY 
+    = parties exchange PUBLIC KEYS
+    = Each party mixes private key with public key and voila
+    = Since private keys stay private NO NEED for a SECURE SIDE CHANNEL
+
+    = Very slow but usually used to create a secure side channel to exchange a symmetric key
+
+Salsa20 - Stream cipher using 256 bit key
+ChaCha - Stream cipher using 512 bit key
+
+ROT 13 - Ceaser cipher
+
+XOR - Why its desirable
+    =Very fast
+    =Slef reversing - applying the same XOR operation twice returns the original
+    =Truth table is a 50/50 split of 0/1 so the output is very uniform
+
+STREAM CIPHER is not feasable for OTP because key is not TRULY random it uses PRNG
+
+BONUS ---->>>>> Daniel j Bernstein ->>>> DJB
