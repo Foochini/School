@@ -10,7 +10,7 @@ Relationship between compiler, high level languages and assembly/machine languag
     -Reprocessing -> compilation -> assembly -> linking -> execution
 
 What is the role of optimising compilers
-    - Improves performance by reducing executiontime and memory usage
+    - Improves performance by reducing execution time and memory usage
 
 Von Neumann and Hardvard / modified harvard architecture (How they store their data and instructions)
     -Vonn neuman - Uses a single memory space and bus for instructions and data
@@ -166,7 +166,7 @@ RISC - REDUCED INSTRUCTION SET COMPUTER
 X Y Z
 X = r27 upper half r26 lower half
 Y = r29 upper half r28 lower half
-Z = R13 upper half r30 lower half
+Z = R31 upper half r30 lower half
 
 nop means no operation so it does nothing
 nop = sleep(1);
