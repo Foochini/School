@@ -1,0 +1,176 @@
+Two major fields of machine architecture and what they cover (Machine organization and Instruction Set Architecture)
+    -Machine organization - Focused on the physical components of a computer including memory hierarchy, CPU structure and data flow
+    -Instruction set arch - Defines the set of instructons a processor can execute, acting as an interface between hardware and software
+
+What assembly and machine language mean and what each language consists of
+    - assembly - A low level language that uses mnemonic code to represent instructions
+    - MAchien code - binary representation of instructions that a processor can execute
+
+Relationship between compiler, high level languages and assembly/machine language (How does compiler go from C to machine code)
+    -Reprocessing -> compilation -> assembly -> linking -> execution
+
+What is the role of optimising compilers
+    - Improves performance by reducing executiontime and memory usage
+
+Von Neumann and Hardvard / modified harvard architecture (How they store their data and instructions)
+    -Vonn neuman - Uses a single memory space and bus for instructions and data
+    -Harvard - Two memory buses, one for data, one for instructions
+    -Modified harvard - Allows data to be stored in instructions and vise versa
+
+Understand the 3 major types of memory within an AVR and what each is used for (Progmem/flash, data memory/SRAM and EEPROM)
+    - Progmem/flash - Stores instructions and/or data - persistent memory - largest storage - flash mem is 16 BITS WIDE 
+    - SRAM - Stores data and registers - faster than flash but volatile (lose data if power lost) - stores variables - 8 BITS WIDE
+    - EEPROM - persistent long term data - very slow compared to others - Stores BIOS / startup instructions - 8 BITS WIDE
+
+Know what execute in place means (XIP) - AVR IS XIP
+    - Executes code directly from flash memoru without copying to RAM, saving space
+
+Be familiar with the 32 general purpose registers, the status register and how they interact with the actual ALU
+    - R0 - R31
+    - ALU performs arithmatic operations by using the general purpose registers
+    - Operands are fetched from registers, processed in the ALU and the result is stored back in the register
+
+Need to know the important status register flag bits (carry flag, zero flag, negative flag)
+    -Carry flag (C) - Set when arithmatic operation generates a carry
+    -Zero Flag(Z) - Set when operation results in zero
+    -Negative Flag(N) - Set when the result of an operation is negative
+
+Be able to use ALU operations such as add, adc, sub and subi
+    -ADD - adds two registers
+    -ADC - Includes the carry from the previous operation
+    -SUB - Subtracts two registers
+    -SUBI - subtracts an immediate value
+
+Be comfortable doing 16 bit addition with 8 bit registers
+    -Need to add the two lower bytes and the two upper bytes with the carry from lower if needed
+
+Know the difference between unsigned and signed bits
+    -Signed bits use the first bit as a sign 1 = neg while 0 = positive
+    -unsigned bits can only represent postive numbers
+
+Know the difference between ones compliment and twos compliment and the benefits and drawbacks of each (double zeros)
+    -Using sign bits means we have two zeros 0000 = -0 and 0000 = 0
+    -Ones compliment - COM instruction - FORMULA = 2^n - 1 - x where n = length in bits of the number so if 8 bit number 2^8
+    -PROBLEM WITH ones compliment - two zeros still - 0000 = 0 and 1111 = -0
+    -Twos compliment - NEG instruction - Invert number than add 1 - 77 = 0100 1101 invert it = 1011 0010 and add 0000 0001 so = 1011 0011 = -77
+
+Be able to calculate a simpel example of one or twos compliment
+
+Endianness and remember AVR is little endian
+    -little endian - read from left to write starting with the smallest on left
+    -Big edian - read from right to left with biggest number on the left
+
+Be familiar with neg and com instructions
+    -COM = ones compliment
+    -NEG = twos compliment
+
+be able to provide simple inline ASM function
+
+
+understand and describe issues with compiler optimization/reordering and why it causes issues with inline ASM
+    -The compiler may optimize, eliminate or reorder isntructions affecting inline ASM execution
+    -use the VOLATILE key word to prevent unwanted optimizations - asm volatile();
+
+know what _SFR_MEM8_ does
+    -Used to access memory mapped I/O registers
+
+Describe why registers should only be treated as temporary data storage and shouldnt be relied on to hold values
+    -Registers store intermediate values but can be modified by compiler optimization
+    -Save important register before calling subroutines by using PUSH and restore them using POP
+
+be able to declare a labelled, allocated memory space using DSEG declarations 
+    -Allows for named memory locations making it easier to referance specific addresses in SRAM
+
+Understand HOW labels work (They are just convienent names for the compiler to refer to an address in memory - NOT PART OF ASM!)
+    -Convenient human readable memory referances
+
+Be familiar with direct load and store instructions (STS, LDS) including their address lengths, overall instruction size and use them to appropriately load and store data(and where its stores)
+    -STS directly sotres data to SRAM
+    -LDS drectily loads data from SRAM
+
+What CLOBBERING is in inline ASM and why its used 
+    -Ensures registers modified in ASM do not interfere with C variables
+
+MEMORIZE which registers are the X, Y and Z registers and the order there used (which register is the upper and which is the lower)
+    -These registers are used for indirect memory access
+    -They act as pointers to memory locations enabling effiecient data manipulation
+    -Each pointer consists of 2 8-bit registers
+
+Kow how to use ST and LD isntructions alogn with the X/Y/Z registers to indirectly address memory
+    -LD - Load indirect - Loads data from meory using a pointer
+    -ST - Store indirect - writes data to memory using a pointer
+    - LD R16, X // Load the value from address pointed to by X into R16
+    - ST X, R16 // Sotre value from R16 into memory locatiuon pointed by X
+
+Research post- increment and pre-decrement versions of these instructions and howq they work
+    - Post increment - (LD R16, X+) increments the pointer after execution
+    - Pre decrement - (LD R16, -X) decrements the pointer after execution
+    - Useful for iterating over arrays or buffers
+
+Know some of the background issues/concerns (not allowing ST?LD to directly modify their own X/Y/Z registers)
+    - Modifying pointer registers incorrectly can lead to memory corruption
+    - Always ensure correct use of X, Y and Z to prevent overwrites
+
+know how the CP/CPI and TST instructions work and how they return results (using the status register)
+    -CP (Compare registers) compares 2 registers by substracting one from the other, updating the  status register without modifying the operands
+    - CPI (Cpare with immediate) Does the same as CP but comapres a register with an immediate value
+    - TST(Test for zero) performs AND operation on a register with itself setting flags based off the result
+    - All these modify the zero, negative and carry flags of the status register
+
+Know some but not all of the branch instructions - BRNE, BREQ, BRLT, BRGE - most important ones
+    - BRNE (Branch if not equal) - Jumps if the zero flag is clear
+    - BREQ (Branch if equal) - Jumps if the zero flag is set (if its set the two we compared are equal)
+    - BRLT (Branch if less than) Jumps if the negative flag is different from the overflow flag
+    - BRGE (Branch if greater or equal) - Jumps if the negative flag matches the overflow flag
+
+understand how BRANCH works with LABELS when jumping and how BRANCH treats the program counter (its a RELATIVE jump, not an absolute one)
+    - branch instructions work with labels to control program flow
+    - Since branch instrcutions use RELATIVE ADDRESSING they adjust the program counter relative to the current instruction
+
+know about the direct address jump(JMP)
+    - Unlike branches JMP is and ABSOLUTE JUMP, meaning it directly sets the program counter to a specified address
+
+Know and be able to compare the three major forms of addressing  for jump and call (direct(JMP), indirect(IJMP), and relative(RJMP)) and how each works
+    -JMP(Direct Jump) - jumps to a fixed memory address
+    -IJMP(indirect Jump) - Uses a register to determine the jump address
+    -RJMP(Relative jump) - jumps a specified number of bytes from the current position 
+
+Make sure you know how SUBROUTINES work including how the PROGRAM COUNTER is saved and then RESTORED after the subroutine is called (Should know the CALL variants and the RET instruction)
+    -CALL - Saves the current program counter onto the stack before jumping to a subroutine
+    -RET - Restores the program counter to continue after execution
+
+When certain types of JMP or CALL addressing would be appropriate (memory limitations)
+    -Use JMP when the destination is known at compile time
+    -Use CALL when invoking reusable subroutines
+    -Use RJMP for short jumps within a memory range to save isntruction space
+
+Be able to point out WHERE the stack is located in the AVR architecture
+    - The stack is located at the END of SRAM and grows downward as data is pushed ont it
+
+Understand the Last in first out (LIFO) stack works (push and pop instructions and how the STACK POINTER is used to keep track)
+    -LAST IN FIRST OUT (LIFO)
+
+Be able to provide some simple instructions to push and pop the data from the stack (Know the format of the push and pop instructions)
+    -PUSH - stores the register onto the stack and decrements the stack pointer
+    -POP - retrieves the last stored value from the stack into whatever register is specifieed and increments stack pointer
+    - PUSH R16 // Stores R16 on the stack
+    - POP R16 // Restores calue from the stack into R16
+
+Understand what happens if there are collisions in the stack (PUSHing to the stack inside a CALL before the RET is executed)
+    -Improper stack management can lead to collisions, such as pushing into a subroutine wiout popping beforehand
+    - Ensure that every PUSH has a corresponding POP to maintain stack integrity
+
+
+RISC - REDUCED INSTRUCTION SET COMPUTER
+
+X Y Z
+X = r27 upper half r26 lower half
+Y = r29 upper half r28 lower half
+Z = R13 upper half r30 lower half
+
+nop means no operation so it does nothing
+nop = sleep(1);
+
+
+
+
